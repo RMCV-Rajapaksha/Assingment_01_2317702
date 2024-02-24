@@ -7,9 +7,11 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  final TextEditingController username = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-  final TextEditingController password = TextEditingController();
+  final String correctUsername = 'admin';
+  final String correctPassword = 'admin';
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class _HomepageState extends State<Homepage> {
                           ),
                         ),
                         TextFormField(
-                          controller: username,
+                          controller: usernameController,
                           decoration: InputDecoration(
                             labelText: 'Email',
                             labelStyle: const TextStyle(
@@ -68,7 +70,8 @@ class _HomepageState extends State<Homepage> {
                           height: screenHeight * 0.02,
                         ),
                         TextFormField(
-                          controller: username,
+                          obscureText: true,
+                          controller: passwordController,
                           decoration: InputDecoration(
                             labelText: 'Password',
                             labelStyle: const TextStyle(
@@ -111,10 +114,26 @@ class _HomepageState extends State<Homepage> {
                           ),
                           child: TextButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Bottom()));
+                              if (usernameController.text == correctUsername &&
+                                  passwordController.text == correctPassword) {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Bottom()));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Center(
+                                      child: Text('Invalid Email or Password!',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Color.fromRGBO(
+                                                  238, 81, 81, 1))),
+                                    ),
+                                    backgroundColor: Colors.white,
+                                  ),
+                                );
+                              }
                             },
                             child: const Text(
                               'Sign In',
