@@ -1,4 +1,5 @@
 import 'package:assignment_02/pages/first.dart';
+import 'package:assignment_02/pages/order.dart';
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: First(),
+      home: Order(),
     );
   }
 }

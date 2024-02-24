@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+int price = 0;
+
 List<String> image = [
   'assets/images/rice.png',
   'assets/images/head.png',
@@ -99,6 +101,7 @@ class _MyWidgetState extends State<MyWidget> {
   void _incrementCounter() {
     setState(() {
       _counter++;
+      _price();
       print(_counter);
     });
   }
@@ -106,7 +109,15 @@ class _MyWidgetState extends State<MyWidget> {
   void _decrementCount() {
     setState(() {
       _counter--;
+      _price();
       print(_counter);
+    });
+  }
+
+  void _price() {
+    setState(() {
+      price = _counter * 2400;
+      print(price);
     });
   }
 
@@ -255,7 +266,6 @@ class _MyWidgetState extends State<MyWidget> {
 }
 
 void showCustomBottomSheet(BuildContext context) {
-  int price = 9400;
   int delivery = 300;
   int total = price + delivery;
   showModalBottomSheet(
