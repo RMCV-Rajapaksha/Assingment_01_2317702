@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+List<String> image = [
+  'assets/images/rice.png',
+  'assets/images/head.png',
+  'assets/images/lasa.png',
+];
+
 class Order extends StatefulWidget {
   @override
   State<Order> createState() => _HomepageState();
@@ -17,9 +23,9 @@ class _HomepageState extends State<Order> {
       body: Stack(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 30),
+            padding: const EdgeInsets.symmetric(vertical: 30),
             width: double.infinity,
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(),
             height: screenHeight,
             child: SafeArea(
               child: Column(
@@ -29,7 +35,7 @@ class _HomepageState extends State<Order> {
                       SizedBox(
                         width: screenWidth * 0.05,
                       ),
-                      Text(
+                      const Text(
                         'Order Summary',
                         style: TextStyle(
                             color: Colors.grey,
@@ -43,10 +49,10 @@ class _HomepageState extends State<Order> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: 3,
+                      itemCount: image.length,
                       itemBuilder: (context, index) {
-                        final tile = 3;
-                        return MyWidget();
+                        final tile = image.length;
+                        return MyWidget(image[index]);
                       },
                     ),
                   ),
@@ -54,14 +60,14 @@ class _HomepageState extends State<Order> {
                     height: screenHeight * 0.08,
                     width: screenWidth * 0.9,
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(238, 81, 81, 1),
+                      color: const Color.fromRGBO(238, 81, 81, 1),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: TextButton(
                         onPressed: () {
                           showCustomBottomSheet(context);
                         },
-                        child: Text(
+                        child: const Text(
                           'Ckeckout',
                           style: TextStyle(
                             color: Colors.white,
@@ -80,7 +86,8 @@ class _HomepageState extends State<Order> {
 }
 
 class MyWidget extends StatefulWidget {
-  const MyWidget({Key? key}) : super(key: key);
+  final String image;
+  const MyWidget(this.image, {Key? key}) : super(key: key);
 
   @override
   State<MyWidget> createState() => _MyWidgetState();
@@ -117,14 +124,14 @@ class _MyWidgetState extends State<MyWidget> {
             color: Colors.black.withOpacity(0.1),
             spreadRadius: 3,
             blurRadius: 5,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
         color: Colors.white,
       ),
       width: screenWidth * 0.1,
       height: screenWidth * 0.3,
-      margin: EdgeInsets.all(5.0),
+      margin: const EdgeInsets.all(5.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -136,7 +143,7 @@ class _MyWidgetState extends State<MyWidget> {
                 borderRadius: BorderRadius.circular(16),
                 child: Image.network(
                   'https://media.cnn.com/api/v1/images/stellar/prod/180926182353-06-valentinas-tex-mex-barbecue-092618.jpg?q=w_1600,h_900,x_0,y_0,c_fill',
-                  width: 100,
+                  width: 130,
                   height: 100,
                   fit: BoxFit.cover,
                 ),
@@ -144,10 +151,13 @@ class _MyWidgetState extends State<MyWidget> {
             ],
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              SizedBox(
+                height: screenHeight * 0.03,
+              ),
+              const Text(
                 'Tex Mex BBQ',
                 style: TextStyle(
                   color: Colors.grey,
@@ -155,23 +165,17 @@ class _MyWidgetState extends State<MyWidget> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              RatingBar.builder(
-                initialRating: 4,
-                minRating: 1,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
-                itemBuilder: (context, _) => Icon(
+              RatingBarIndicator(
+                rating: 4.5,
+                itemBuilder: (context, index) => const Icon(
                   Icons.star,
                   color: Color.fromRGBO(238, 81, 81, 1),
-                  size: 20, // Adjust the size of the stars as needed
                 ),
-                onRatingUpdate: (rating) {
-                  print(rating);
-                },
+                itemCount: 5,
+                itemSize: 25,
+                direction: Axis.horizontal,
               ),
-              Text(
+              const Text(
                 '2400 LKR',
                 style: TextStyle(
                   color: Color.fromRGBO(238, 81, 81, 1),
@@ -194,17 +198,17 @@ class _MyWidgetState extends State<MyWidget> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
                       border: Border.all(
-                        color: Color.fromRGBO(238, 81, 81, 1),
+                        color: const Color.fromRGBO(238, 81, 81, 1),
                       ),
                     ),
                     child: IconButton(
                       onPressed: _decrementCount,
 
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.minimize,
                         size: 14,
                       ),
-                      color: Color.fromRGBO(238, 81, 81, 1),
+                      color: const Color.fromRGBO(238, 81, 81, 1),
                       iconSize: 20, // Increase the size to make it more visible
                     ),
                   ),
@@ -212,7 +216,7 @@ class _MyWidgetState extends State<MyWidget> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
                       '$_counter',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
@@ -230,13 +234,13 @@ class _MyWidgetState extends State<MyWidget> {
                     ),
                     child: IconButton(
                       onPressed: _incrementCounter,
-                      icon: Center(
-                        child: const Icon(
+                      icon: const Center(
+                        child: Icon(
                           Icons.add,
                           size: 14,
                         ),
                       ),
-                      color: Color.fromRGBO(238, 81, 81, 1),
+                      color: const Color.fromRGBO(238, 81, 81, 1),
                       iconSize: 20,
                     ),
                   ),
@@ -252,13 +256,13 @@ class _MyWidgetState extends State<MyWidget> {
 
 void showCustomBottomSheet(BuildContext context) {
   int price = 9400;
-  int devivery = 300;
-  int total = price + devivery;
+  int delivery = 300;
+  int total = price + delivery;
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
       return Container(
-        height: 300,
+        height: 375,
         color: Colors.white,
         child: Center(
           child: Padding(
@@ -266,7 +270,7 @@ void showCustomBottomSheet(BuildContext context) {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 RichText(
@@ -275,7 +279,7 @@ void showCustomBottomSheet(BuildContext context) {
                         'Order                                                                                        ',
                     style: const TextStyle(
                       color: Colors.grey,
-                      fontSize: 12,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                     ),
                     children: <TextSpan>[
@@ -283,7 +287,7 @@ void showCustomBottomSheet(BuildContext context) {
                           text: '$price LKR',
                           style: const TextStyle(
                             color: Colors.grey,
-                            fontSize: 12,
+                            fontSize: 10,
                             fontWeight: FontWeight.bold,
                           )),
                     ],
@@ -295,15 +299,15 @@ void showCustomBottomSheet(BuildContext context) {
                         'Delivery                                                                                     ',
                     style: const TextStyle(
                       color: Colors.grey,
-                      fontSize: 12,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                     ),
                     children: <TextSpan>[
                       TextSpan(
-                          text: ' $devivery LKR',
+                          text: ' $delivery LKR',
                           style: const TextStyle(
                             color: Colors.grey,
-                            fontSize: 12,
+                            fontSize: 10,
                             fontWeight: FontWeight.bold,
                           )),
                     ],
@@ -315,10 +319,10 @@ void showCustomBottomSheet(BuildContext context) {
                 RichText(
                   text: TextSpan(
                     text:
-                        'Total                                                            ',
+                        'Total                                                              ',
                     style: const TextStyle(
                       color: Color.fromARGB(255, 127, 125, 125),
-                      fontSize: 16,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
                     children: <TextSpan>[
@@ -326,7 +330,7 @@ void showCustomBottomSheet(BuildContext context) {
                           text: ' $total LKR',
                           style: const TextStyle(
                             color: Color.fromARGB(255, 127, 125, 125),
-                            fontSize: 16,
+                            fontSize: 13,
                             fontWeight: FontWeight.bold,
                           )),
                     ],
@@ -341,12 +345,97 @@ void showCustomBottomSheet(BuildContext context) {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: const BorderSide(color: Colors.grey),
                       ),
                       labelText: 'Apply Coupon Code',
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                         color: Colors.grey,
                         fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                ListTile(
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  title: const Text(
+                    'Address',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  subtitle: const Text(
+                    'Victoria Higgins \n 34 D4,Rose Ave \n Texas',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  trailing: const Text(
+                    'Change',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Color.fromRGBO(
+                        238,
+                        81,
+                        81,
+                        1,
+                      ),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  title: const Text(
+                    'Payment Method',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  subtitle: RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: const [
+                        TextSpan(
+                          text: 'VISA',
+                          style: TextStyle(
+                            fontSize: 10,
+
+                            color: Colors.red, // Highlight color
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' **** **** **** 3947',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  trailing: const Text(
+                    'Change',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Color.fromRGBO(
+                        238,
+                        81,
+                        81,
+                        1,
                       ),
                     ),
                   ),

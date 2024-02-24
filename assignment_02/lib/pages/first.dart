@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:assignment_02/pages/login.dart';
 
 class First extends StatefulWidget {
   @override
@@ -10,15 +11,28 @@ class _HomepageState extends State<First> {
   final TextEditingController password = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration(seconds: 3), delayedNavigation);
+  }
+
+  void delayedNavigation() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => Homepage()),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 30),
+        padding: const EdgeInsets.symmetric(vertical: 30),
         width: double.infinity,
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         height: screenHeight,
         child: Column(
           children: <Widget>[
@@ -32,7 +46,7 @@ class _HomepageState extends State<First> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
+                      SizedBox(
                         height: screenHeight * 0.37,
                         child: Image.network(
                           'assets/images/logo.png',
@@ -45,8 +59,9 @@ class _HomepageState extends State<First> {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: FloatingActionButton(
-                          onPressed: () {},
-                          child: Text(
+                          onPressed: delayedNavigation,
+                          backgroundColor: const Color.fromRGBO(238, 81, 81, 1),
+                          child: const Text(
                             'Skip',
                             style: TextStyle(
                               color: Colors.white,
@@ -54,7 +69,6 @@ class _HomepageState extends State<First> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          backgroundColor: Color.fromRGBO(238, 81, 81, 1),
                         ),
                       ),
                     ],

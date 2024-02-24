@@ -1,12 +1,21 @@
+import 'package:assignment_02/pages/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 List<String> image = [
-  'assets/images/rice.png',
+  'assets/images/rice.jpg',
   'assets/images/head.png',
-  'assets/images/lasa.png',
-  'assets/images/potato.png',
-  'assets/images/noodle.png',
+  'assets/images/lasa.jpg',
+  'assets/images/potato.jpg',
+  'assets/images/noodle.jpg',
+];
+
+List<String> food = [
+  'Fried Rice',
+  'Cheese Pasta',
+  'Lasagna',
+  'Burger',
+  'Chicken Noodle',
 ];
 
 class HomePage extends StatefulWidget {
@@ -24,21 +33,22 @@ class _HomePageState extends State<HomePage> {
         title: const Text(
           'Good Afternoon! Victorya!',
           style: TextStyle(
-            color: Colors.black,
-            fontSize: 16,
+            color: Colors.grey,
+            fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.menu),
+          color: Color.fromRGBO(238, 81, 81, 1),
           onPressed: () {
             // Add functionality for the menu button
           },
         ),
-        actions: [
+        actions: const [
           CircleAvatar(
-            backgroundImage: AssetImage('assets/images/profile_image.jpg'),
+            backgroundImage: AssetImage('assets/images/Profile.png'),
           ),
           SizedBox(
             width: 16,
@@ -58,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               itemCount: image.length,
               itemBuilder: (context, index) {
                 final tile = image.length;
-                return MyWidget(image[index]);
+                return MyWidget(image[index], food[index]);
               },
             ),
           ),
@@ -77,7 +87,8 @@ class _HomePageState extends State<HomePage> {
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(20),
             ),
-            child: TextField(
+            child: const TextField(
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 hintText: 'Search...',
                 prefixIcon: Icon(Icons.search),
@@ -131,16 +142,16 @@ Widget _buildCircleAvatarRow() {
       scrollDirection: Axis.horizontal,
       itemCount: 8,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
+        return const Padding(
+          padding: EdgeInsets.all(8.0),
           child: CircleAvatar(
             backgroundColor: Color.fromRGBO(238, 81, 81, 1),
+            radius: 25,
             child: Icon(
               Icons.food_bank_rounded,
               color: Colors.white,
               size: 35,
             ),
-            radius: 25,
           ),
         );
       },
@@ -150,14 +161,16 @@ Widget _buildCircleAvatarRow() {
 
 class MyWidget extends StatelessWidget {
   final String imageUrl;
+  final String food;
 
-  MyWidget(this.imageUrl, {Key? key}) : super(key: key);
+  MyWidget(this.imageUrl, this.food, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     double screenWidth = mediaQueryData.size.width;
     double screenHeight = mediaQueryData.size.height;
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -173,68 +186,94 @@ class MyWidget extends StatelessWidget {
       ),
       width: screenWidth * 0.1,
       height: 130,
-      margin: EdgeInsets.all(5.0),
+      margin: const EdgeInsets.all(5.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.network(
-                  imageUrl,
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.cover,
+              IconButton(
+                icon: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(
+                    imageUrl,
+                    width: 130,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Tex Mex BBQ',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              RatingBar.builder(
-                initialRating: 4,
-                minRating: 1,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => Icon(
-                  Icons.star,
-                  color: Color.fromRGBO(238, 81, 81, 1),
-                  size: 2, // Adjust the size of the stars as needed
-                ),
-                onRatingUpdate: (rating) {
-                  print(rating);
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Home()),
+                  );
                 },
               ),
-              Text(
-                'Non Veg Classic Meat',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 12,
-                ),
+            ],
+          ),
+          SizedBox(
+            height: screenWidth * 0.8,
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: screenWidth * 0.05,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: screenHeight * 0.03,
+                  ),
+                  Text(
+                    food, // Use the food parameter here
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  RatingBarIndicator(
+                    rating: 2.75,
+                    itemBuilder: (context, index) => const Icon(
+                      Icons.star,
+                      color: Color.fromRGBO(238, 81, 81, 1),
+                    ),
+                    itemCount: 5,
+                    itemSize: 25,
+                    direction: Axis.horizontal,
+                  ),
+                  const Text(
+                    'Non Veg Classic Meat',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          Column(
+          const Row(
             children: [
-              Icon(
-                Icons.shopping_bag,
-                size: 50,
-                color: Colors.blue, // You can customize the color
+              SizedBox(
+                width: 30,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Icon(
+                    Icons.favorite_border,
+                    size: 30,
+                    color: Colors.grey, // You can customize the color
+                  ),
+                ],
               ),
             ],
           ),
