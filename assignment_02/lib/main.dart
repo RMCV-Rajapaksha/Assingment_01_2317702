@@ -1,4 +1,5 @@
 import 'package:assignment_02/pages/first.dart';
+import 'package:assignment_02/pages/home.dart';
 import 'package:assignment_02/pages/order.dart';
 
 import 'package:device_preview/device_preview.dart';

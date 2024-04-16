@@ -9,6 +9,17 @@ List<String> image = [
   'assets/images/lasa.png',
 ];
 
+List<String> food = [
+  'Fried Rice',
+  'Cheese Pasta',
+  'Lasagna',
+];
+List<double> Meel_Price = [
+  2400,
+  1400,
+  2000,
+];
+
 class Order extends StatefulWidget {
   @override
   State<Order> createState() => _HomepageState();

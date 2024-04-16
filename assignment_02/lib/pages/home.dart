@@ -17,6 +17,21 @@ List<String> food = [
   'Burger',
   'Chicken Noodle',
 ];
+List<String> Description = [
+  'Non Veg Classic Meat',
+  'Veg Classic Meat',
+  'Non Veg Classic Meat',
+  'Non Veg Fast Food',
+  'Non Veg Classic Meat',
+];
+
+List<double> rating = [
+  4,
+  4.5,
+  5,
+  3.75,
+  4.25,
+];
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -68,7 +83,8 @@ class _HomePageState extends State<HomePage> {
               itemCount: image.length,
               itemBuilder: (context, index) {
                 final tile = image.length;
-                return MyWidget(image[index], food[index]);
+                return MyWidget(image[index], food[index], Description[index],
+                    rating[index]);
               },
             ),
           ),
@@ -162,8 +178,11 @@ Widget _buildCircleAvatarRow() {
 class MyWidget extends StatelessWidget {
   final String imageUrl;
   final String food;
+  final String description;
+  final double rating;
 
-  MyWidget(this.imageUrl, this.food, {Key? key}) : super(key: key);
+  MyWidget(this.imageUrl, this.food, this.description, this.rating, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -237,7 +256,7 @@ class MyWidget extends StatelessWidget {
                     ),
                   ),
                   RatingBarIndicator(
-                    rating: 2.75,
+                    rating: rating,
                     itemBuilder: (context, index) => const Icon(
                       Icons.star,
                       color: Color.fromRGBO(238, 81, 81, 1),
@@ -246,8 +265,8 @@ class MyWidget extends StatelessWidget {
                     itemSize: 25,
                     direction: Axis.horizontal,
                   ),
-                  const Text(
-                    'Non Veg Classic Meat',
+                  Text(
+                    description,
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
@@ -282,38 +301,3 @@ class MyWidget extends StatelessWidget {
     );
   }
 }
-
-// class MyWidget extends StatefulWidget {
-//   final String imageUrl;
-
-//   MyWidget(this.imageUrl, {Key? key}) : super(key: key);
-
-//   @override
-//   State<MyWidget> createState() => _MyWidgetState();
-// }
-
-// class _MyWidgetState extends State<MyWidget> {
-//   @override
-//   Widget build(BuildContext context) {
-//     MediaQueryData mediaQueryData = MediaQuery.of(context);
-//     double screenWidth = mediaQueryData.size.width;
-//     double screenHeight = mediaQueryData.size.height;
-//     return
-//   }
-// }
-
-// List<String> image = [
-//   'assets/images/rice.png',
-//   'assets/images/head.png',
-//   'assets/images/lasa.png',
-//   'assets/images/potato.png',
-//   'assets/images/noodle.png',
-// ];
-
-// final List<Function()> onTapFunctions = [
-//   () => print('Profile'),
-//   () => print('Settings'),
-//   () => print('Settings'),
-//   () => print('Settings'),
-//   () => print('login'),
-// ];
